@@ -8,6 +8,7 @@ use App\Models\Technology;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller; 
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -48,6 +49,12 @@ class ProjectController extends Controller
         $data = $request->validated();
         
         $newProject = new Project();
+
+        if($request->has('post_image')){
+            $path = Storage::disk('public')->put('images_upload', $data['post_image']);
+
+            $newProject['post_image'] = $path;
+        }
         
         $newProject->fill($data);
 

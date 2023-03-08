@@ -11,8 +11,8 @@
                         @endforeach                        
                     </ul>
                 @endif
-                <form method="POST" action="{{route('admin.projects.update', $project->titolo)}}">
-                    @csrf 
+                <form method="POST" action="{{route('admin.projects.update', $project->titolo)}}" enctype="multipart/form-data">
+                    @csrf  
 
                     @method('PUT')
                     <div class="form-group my-2">

@@ -11,13 +11,22 @@
                         @endforeach                        
                     </ul>
                 @endif
-                <form method="POST" action="{{route('admin.projects.store')}}">
+                <form method="POST" action="{{route('admin.projects.store')}}" enctype="multipart/form-data">
                     @csrf 
 
                     <div class="form-group my-2">
                         <label class="fs-2 fw-semibold" for="title">Titolo</label>
                         <input type="text" class="form-control" name="titolo" id="title" placeholder="Inserire Titolo">
                         @error('titolo')
+                            <div class="mt-2 alert alert-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group my-2">
+                        <label class="fs-2 fw-semibold form-label" for="immagine">Immagini</label>
+                        <input type="file" class="form-control" name="post_image" id="immagine">
+                        @error('post_image')
                             <div class="mt-2 alert alert-danger">
                                 {{ $message }}
                             </div>

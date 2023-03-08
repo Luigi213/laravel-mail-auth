@@ -27,7 +27,8 @@ class StoreProjectRequest extends FormRequest
             'titolo' => ['required','unique:projects','max:60'],
             'descrizione' => ['required','max:150'],
             'type_id' => ['nullable','exists:types,id'],
-            'technologies' => ['exists:technologies,id']
+            'technologies' => ['exists:technologies,id'],
+            'post_image' => ['nullable', 'image']
         ];
     }
 
@@ -45,6 +46,7 @@ class StoreProjectRequest extends FormRequest
             'descrizione.required' => 'Descrizione obbligatorio',
             'descrizione.max' => 'Carattere massimo :max',
             'type_id.exists' => 'Seleziona tipo',
+            'post_image.image' => 'Formato non accettato'
         ];
     }
 }
