@@ -25,6 +25,18 @@
                         @enderror
                     </div>
                     <div class="form-group my-2">
+                        <label class="fs-2 fw-semibold form-label" for="immagine">Immagini</label>
+                        <div class="my-3">
+                            <img src="{{ asset('storage/' .$project->post_image)}}">
+                        </div>
+                        <input type="file" class="form-control" name="post_image" id="immagine">
+                        @error('post_image')
+                            <div class="mt-2 alert alert-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group my-2">
                         <label class="fs-2 fw-semibold" for="tipo">Tipo</label>
                         <select class="d-block" name="type_id" id="tipo">
                             <option value="">Seleziona tipo</option>

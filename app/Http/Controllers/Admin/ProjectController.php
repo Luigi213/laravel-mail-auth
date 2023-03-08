@@ -51,7 +51,7 @@ class ProjectController extends Controller
         $newProject = new Project();
 
         if($request->has('post_image')){
-            $path = Storage::disk('public')->put('images_upload', $data['post_image']);
+            $path = Storage::disk('public')->put('images_upload',  $request->post_image);
 
             $newProject['post_image'] = $path;
         }
@@ -103,6 +103,16 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $data = $request->validated();
+
+        if($request->has('post_image')){            
+            if($project->post_image){
+                Storage::delete($project->post_image); 
+            }
+    
+            $path = Storage::disk('public')->put('images_upload', $request->post_image);
+    
+            $project['post_image'] = $path;
+        }
         
         $project->fill($data);
 
