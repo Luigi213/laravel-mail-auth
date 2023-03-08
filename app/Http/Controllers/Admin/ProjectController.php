@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
+use App\Models\Lead;
+use App\Mail\ConfirmProject;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller; 
 use Illuminate\Support\Facades\Storage;
 
@@ -58,7 +61,15 @@ class ProjectController extends Controller
         
         $newProject->fill($data);
 
-        $newProject->save();
+        $newProject->save();;
+
+        $new_lead = new Lead();
+        $new_lead->titolo = $data['titolo'];
+        $new_lead->descrizione = $data['descrizione'];
+
+        $new_lead->save();
+
+        Mail::to('ciao@mail.com')->send(new ConfirmProject($new_lead));
 
         if($request->has('technologies')){
             $newProject->technologies()->attach($request->technologies);
